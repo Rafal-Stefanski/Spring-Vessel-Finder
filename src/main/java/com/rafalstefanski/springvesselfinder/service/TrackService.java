@@ -18,12 +18,14 @@ import java.util.stream.Stream;
 @Service
 public class TrackService {
     RestTemplate restTemplate = new RestTemplate();
-
+    private String token = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjBCM0I1NEUyRkQ5OUZCQkY5NzVERDMxNDBDREQ4OEI1QzA5RkFDRjMiLCJ0eXAiOiJhdCtqd3QiLCJ4NXQiOiJDenRVNHYyWi03LVhYZE1VRE4ySXRjQ2ZyUE0ifQ.eyJuYmYiOjE2Mzg1NTIwOTgsImV4cCI6MTYzODU1NTY5OCwiaXNzIjoiaHR0cHM6Ly9pZC5iYXJlbnRzd2F0Y2gubm8iLCJhdWQiOiJhcGkiLCJjbGllbnRfaWQiOiJiYXJlbnRzd2F0Y2hAbWFpbHBsdXMucGw6dmVzZWxmaW5kZXIiLCJzY29wZSI6WyJhcGkiXX0.OtT2abjQd68JDqGyJCT5t62ajYTsWo7uu0Tkve7wEanBtuJEDBVGbPUSG8C6JfF5tP-VL00VF98hvKZQuwMR2f2aiAa5bi1Qoi_mZiBIWP0OBrudcLAiWV9uV1UlhY41xFzU-AsgepMCZvzZuoGvB45ik_hFVnXvECBUkqrv5RB4mlBtQ0ZpDWN2zlSlAVja3x6_gL-PoUCTFfSGs9et0PnNzSVmm1C2-Z2e-wFuHImO9KrlSnXmetvKHpwgKntDHdLn_6BNzCLZYCrzP9fgfXFZQvkJxfOD_t8YXzdb4wi7qoYqaDYiseMNXmcuPZWzq0dYqWOGuT8KnNBAKQAVZeJB5fQ6IrQvLH_aEvSq2L6Qke4v-v8WDwbiobTz5ufaKJdd4XbagwlliP-y6yCD3W38Ogkm7swBKKbftOIAEUE33TXgw4DrRm0CSU9qhBa9lhHY1r-C8VYsA4cthxSVCTCrXiZdii0r5t1VTvytIJ_Arr2x6FFYhXrrPxHZTdJQymweRQn_S0U6LJs8W5CkJ8riCx6XgEpDRqaF6JFxjBaSDyCO2fwyyfJKSdP0EWCxs8MMMlqeuTBGTEkgviq8eq8h_12CGqyqCk50B0PKNbhX_ovI46I2WU6cj6B_G-jU7Gd9VIHX4-dNmtdcWpPf0z7kx-2Ukg7PkFEBgVDgb94";
+    private String headerValue = "bearer " + token;
+    private TokenService tokenService;
 
     public List<Point> getTracks() {
 
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Authorization", "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjBCM0I1NEUyRkQ5OUZCQkY5NzVERDMxNDBDREQ4OEI1QzA5RkFDRjMiLCJ0eXAiOiJhdCtqd3QiLCJ4NXQiOiJDenRVNHYyWi03LVhYZE1VRE4ySXRjQ2ZyUE0ifQ.eyJuYmYiOjE2Mzc4Njk4MjMsImV4cCI6MTYzNzg3MzQyMywiaXNzIjoiaHR0cHM6Ly9pZC5iYXJlbnRzd2F0Y2gubm8iLCJhdWQiOiJhcGkiLCJjbGllbnRfaWQiOiJwcnplbWVrQGJ5a293c2tpLnBsOmxpdmVzdHJlYW0iLCJzY29wZSI6WyJhcGkiXX0.JWE-RR1D47MP99FKDsukushTQoR0hYoLdXrAue0_nIqdrKctwXeHBtD1EQBA0bAl4Y3d3PiGuNOwQwObp1t0JgXJ_PdAXcyYhzRzl36Z1RPSlJJH9PHGDlYrI6-yVvfgAK7v3JP9rLOQf_tCvogAQGXLe52PlVhajCCkJT7ekkUv2GzwkOX26cGEsId-465CP-itKc-lP1in2sOqY3QAoOdU9-HP1-Pq5z3qGpq0OWDbWbLp9bPtDBhdNjUlDAboLeGd1sb6fwsA72jkvt0M1W5iSx_TPKIpzL8pN-KyoR-h5jwSsjaw4yiRpTuAf6DHOD4bLQefkOI-NmWDkbgnCmnOQ2QZaXG6lrSWxwOkydZw__4hIBvD10jK_dKKfOQg7E5JakhQEZONm46Tog_onNc6yYC-OdOjtBjTIB4AFCMU3SWhOvB285VSkoIDKRdsH_ZzRCIHavYXCR7uTvQQmqYbnErSeps2dFgVhwr-4E8WW-xaTW2CBP-acDMza6GgsaWxIWRnCNAnIt-3bDTZbftfFUyHsyBuzvy7gtLgths5nC50Bh1WwjjqDr4o6D8Mc9buFR4Crv-_lMcGCYIkqT74EACWdsHDVe3VI5dT5-U0NwimRAIsu90B_1Yj9thTw5aY2eghaacRAWEwToyNzF1ucJdKbCKSLmG7M0Ll5nQ");
+        httpHeaders.add("Authorization", headerValue);
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
         ResponseEntity<Track[]> exchange = restTemplate.exchange("https://www.barentswatch.no/bwapi/v2/geodata/ais/openpositions?Xmin=10.09094&Xmax=10.67047&Ymin=63.3989&Ymax=63.58645",
@@ -40,6 +42,11 @@ public class TrackService {
                         getDestination(track.getDestination(), track.getGeometry().getCoordinates()).getLatitude()
                 )
         ).collect(Collectors.toList());
+
+
+        System.out.println(tokenService.getAisToken().toString());
+
+
         return collect;
     }
 

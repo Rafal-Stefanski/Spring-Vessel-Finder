@@ -1,3 +1,4 @@
+
 package com.rafalstefanski.springvesselfinder.model;
 
 import java.util.HashMap;
@@ -62,7 +63,7 @@ public class Track {
     @JsonProperty("country")
     private String country;
     @JsonProperty("eta")
-    private Object eta;
+    private String eta;
     @JsonProperty("destination")
     private String destination;
     @JsonProperty("isSurvey")
@@ -203,12 +204,12 @@ public class Track {
     }
 
     @JsonProperty("eta")
-    public Object getEta() {
+    public String getEta() {
         return eta;
     }
 
     @JsonProperty("eta")
-    public void setEta(Object eta) {
+    public void setEta(String eta) {
         this.eta = eta;
     }
 

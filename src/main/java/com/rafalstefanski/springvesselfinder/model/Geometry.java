@@ -1,3 +1,4 @@
+
 package com.rafalstefanski.springvesselfinder.model;
 
 import java.util.HashMap;
