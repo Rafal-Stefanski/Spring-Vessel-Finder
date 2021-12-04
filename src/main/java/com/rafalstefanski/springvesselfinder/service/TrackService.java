@@ -26,6 +26,7 @@ public class TrackService {
         httpHeaders.add("Authorization", tokenService.getAisToken());
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
+//        ResponseEntity<Track[]> exchange = restTemplate.exchange("https://www.barentswatch.no/bwapi/v2/geodata/ais/openpositions?Xmin=4.83&Xmax=31.04&Ymin=57.90&Ymax=68.31",
         ResponseEntity<Track[]> exchange = restTemplate.exchange("https://www.barentswatch.no/bwapi/v2/geodata/ais/openpositions?Xmin=10.09094&Xmax=10.67047&Ymin=63.3989&Ymax=63.58645",
                 HttpMethod.GET,
                 httpEntity,
