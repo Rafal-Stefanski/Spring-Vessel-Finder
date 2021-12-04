@@ -16,8 +16,8 @@ import java.util.List;
 public class MapController {
 
     private final TrackService trackService;
-    private Token token;
     private TokenService tokenService;
+
 
     @Autowired
     public MapController(TrackService trackService, TokenService tokenService) {
@@ -31,6 +31,7 @@ public class MapController {
         return "index";
     }
 
+    // Api view with JSON for checking token
     @GetMapping("/token")
     public ResponseEntity<TokenService> getToken() {
         return new ResponseEntity<>(tokenService, HttpStatus.OK);
