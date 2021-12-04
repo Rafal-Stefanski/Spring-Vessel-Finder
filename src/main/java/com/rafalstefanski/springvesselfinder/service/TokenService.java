@@ -1,42 +1,40 @@
 package com.rafalstefanski.springvesselfinder.service;
 
+import com.rafalstefanski.springvesselfinder.model.Token;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Collections;
-
 @Service
 public class TokenService {
     private String aisToken;
     private String url = "https://id.barentswatch.no/connect/token";
+    private Token token;
 
 //    public TokenService(String asiToken) {
 //        this.asiToken = asiToken;
 //    }
 
 
-    public String getAisToken() {
+    public ResponseEntity<Token> getAisToken() {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
 //        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_FORM_URLENCODED));
-        headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED.toString());
+        headers.add("content-type", MediaType.APPLICATION_FORM_URLENCODED.toString());
 //        headers.add("Accept", MediaType.APPLICATION_JSON.toString()); //Optional in case server sends back JSON data
 
         MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<String, String>();
-        requestBody.add("client_id", "barentswatch@mailplus.pl:veselfinder");
-        requestBody.add("scope", "api");
-        requestBody.add("client_secret", "1roprucafrit");
         requestBody.add("grant_type", "client_credentials");
+        requestBody.add("client_id", "barentswatch@mailplus.pl:veselfinder");
+        requestBody.add("client_secret", "1roprucafrit");
+        requestBody.add("scope", "api");
 
         HttpEntity formEntity = new HttpEntity<MultiValueMap<String, String>>(requestBody, headers);
 
-        ResponseEntity<String> response =
-                restTemplate.exchange("https://id.barentswatch.no/connect/token", HttpMethod.POST, formEntity, String.class);
+        ResponseEntity<Token> response =
+                restTemplate.exchange("https://id.barentswatch.no/connect/token", HttpMethod.POST, formEntity, Token.class);
 
 
 //        HttpEntity<String> entity = new HttpEntity<>("body", headers);
@@ -46,6 +44,6 @@ public class TokenService {
 //        aisToken = restTemplate.getForObject()
 
 
-        return response.toString();
+        return response;
     }
 }

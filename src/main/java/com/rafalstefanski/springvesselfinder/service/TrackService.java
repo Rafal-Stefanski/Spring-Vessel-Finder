@@ -18,9 +18,8 @@ import java.util.stream.Stream;
 @Service
 public class TrackService {
     RestTemplate restTemplate = new RestTemplate();
-    private String token = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjBCM0I1NEUyRkQ5OUZCQkY5NzVERDMxNDBDREQ4OEI1QzA5RkFDRjMiLCJ0eXAiOiJhdCtqd3QiLCJ4NXQiOiJDenRVNHYyWi03LVhYZE1VRE4ySXRjQ2ZyUE0ifQ.eyJuYmYiOjE2Mzg1NTIwOTgsImV4cCI6MTYzODU1NTY5OCwiaXNzIjoiaHR0cHM6Ly9pZC5iYXJlbnRzd2F0Y2gubm8iLCJhdWQiOiJhcGkiLCJjbGllbnRfaWQiOiJiYXJlbnRzd2F0Y2hAbWFpbHBsdXMucGw6dmVzZWxmaW5kZXIiLCJzY29wZSI6WyJhcGkiXX0.OtT2abjQd68JDqGyJCT5t62ajYTsWo7uu0Tkve7wEanBtuJEDBVGbPUSG8C6JfF5tP-VL00VF98hvKZQuwMR2f2aiAa5bi1Qoi_mZiBIWP0OBrudcLAiWV9uV1UlhY41xFzU-AsgepMCZvzZuoGvB45ik_hFVnXvECBUkqrv5RB4mlBtQ0ZpDWN2zlSlAVja3x6_gL-PoUCTFfSGs9et0PnNzSVmm1C2-Z2e-wFuHImO9KrlSnXmetvKHpwgKntDHdLn_6BNzCLZYCrzP9fgfXFZQvkJxfOD_t8YXzdb4wi7qoYqaDYiseMNXmcuPZWzq0dYqWOGuT8KnNBAKQAVZeJB5fQ6IrQvLH_aEvSq2L6Qke4v-v8WDwbiobTz5ufaKJdd4XbagwlliP-y6yCD3W38Ogkm7swBKKbftOIAEUE33TXgw4DrRm0CSU9qhBa9lhHY1r-C8VYsA4cthxSVCTCrXiZdii0r5t1VTvytIJ_Arr2x6FFYhXrrPxHZTdJQymweRQn_S0U6LJs8W5CkJ8riCx6XgEpDRqaF6JFxjBaSDyCO2fwyyfJKSdP0EWCxs8MMMlqeuTBGTEkgviq8eq8h_12CGqyqCk50B0PKNbhX_ovI46I2WU6cj6B_G-jU7Gd9VIHX4-dNmtdcWpPf0z7kx-2Ukg7PkFEBgVDgb94";
+    private String token = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjBCM0I1NEUyRkQ5OUZCQkY5NzVERDMxNDBDREQ4OEI1QzA5RkFDRjMiLCJ0eXAiOiJhdCtqd3QiLCJ4NXQiOiJDenRVNHYyWi03LVhYZE1VRE4ySXRjQ2ZyUE0ifQ.eyJuYmYiOjE2Mzg2MjY0NDEsImV4cCI6MTYzODYzMDA0MSwiaXNzIjoiaHR0cHM6Ly9pZC5iYXJlbnRzd2F0Y2gubm8iLCJhdWQiOiJhcGkiLCJjbGllbnRfaWQiOiJiYXJlbnRzd2F0Y2hAbWFpbHBsdXMucGw6dmVzZWxmaW5kZXIiLCJzY29wZSI6WyJhcGkiXX0.g1t7ZWQchvaTObbJc8O1r9fmQoHEVBmlIpaWHomhkvQOsiFZrf1UrA0AeVWAaXVwpH76BgJ1Tpk1m8zMWiXRh5-pNWlaU1Mf6QQiACns5YjLW6HKXPN7PRz817qjdeuJdIN-3TpSp4q7U5CgppqkdGPEep56x9Od0ENLlRzvOKZUbWHhaOzNUJdhNnrco0_tROiXVcteMznc1ePRzPzuQKp7YUElicbSHW0sS6cZoPys85Hf1Mrzx0YIZd1w8b6uCufJI_3zeggdI0iwyeTTtJxb_X91qX07oAihQtRF2HiMt9f9L0DUfbkHkk1H-knt20OjutZwknloxd6As-mbZ-PJI17ayVGyjVVZQr6fbnEyKmxqy-14xnW5AwmQtbCOuK-vWTYrZ0W23T_eSqFeWF81zMNKshebbY72BiFmaNp3RrWF9gN-RTnksqvUOZhPpfPJERBvdZ3S7vGHTjj4QE2AE1UbCTGUFO_i01g9KLyYP8ktlAf0eplTSfeEIhpXb4dcDeqSkeG5dWn3ohs6rvxoz22lOb4Ihp9HiIYslutWHfgPoqB4LR5LsVWmRpjfbG3ySKnmmrFrXx7gyCJvM40KBxpMx9A08jsaxOGBmbc999_fGz6qTKF-2I7ucrXKFWh9MFk1ISphstJh6A8u47xp5VPRsmIs3pe-yR5jIYE";
     private String headerValue = "bearer " + token;
-    private TokenService tokenService;
 
     public List<Point> getTracks() {
 
@@ -42,9 +41,6 @@ public class TrackService {
                         getDestination(track.getDestination(), track.getGeometry().getCoordinates()).getLatitude()
                 )
         ).collect(Collectors.toList());
-
-
-        System.out.println(tokenService.getAisToken().toString());
 
 
         return collect;
