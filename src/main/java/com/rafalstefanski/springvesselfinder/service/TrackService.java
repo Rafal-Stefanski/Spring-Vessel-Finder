@@ -5,7 +5,6 @@ import com.rafalstefanski.springvesselfinder.dto.VesselDto;
 import com.rafalstefanski.springvesselfinder.model.Datum;
 import com.rafalstefanski.springvesselfinder.model.Point;
 import com.rafalstefanski.springvesselfinder.model.Track;
-import com.rafalstefanski.springvesselfinder.model.vessel.Vessel;
 import com.rafalstefanski.springvesselfinder.repository.VesselRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -25,18 +24,15 @@ import java.util.stream.Stream;
 @Service
 public class TrackService {
     private final RestTemplate restTemplate = new RestTemplate();
-    private final TokenService tokenService = new TokenService();
-//    private final HttpHeaders httpHeaders = new HttpHeaders();
+    private final ResponseEntity<Track[]> exchange;
+
     private final VesselRepository vesselRepository;
 
     @Autowired
     public TrackService(VesselRepository vesselRepository) {
         this.vesselRepository = vesselRepository;
-    }
-
-    public List<Point> getTracks() {
-
         HttpHeaders httpHeaders = new HttpHeaders();
+        TokenService tokenService = new TokenService();
         httpHeaders.add("Authorization", tokenService.getAisToken());
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
         // location: Norway (loading time: approx 4-5 min)
@@ -44,12 +40,15 @@ public class TrackService {
         // location: Trondheim
 //        ResponseEntity<Track[]> exchange = restTemplate.exchange("https://www.barentswatch.no/bwapi/v2/geodata/ais/openpositions?Xmin=10.09094&Xmax=10.67047&Ymin=63.3989&Ymax=63.58645",
         // location: Oslo
-        ResponseEntity<Track[]> exchange = restTemplate.exchange("https://www.barentswatch.no/bwapi/v2/geodata/ais/openpositions?Xmin=10.035968&Xmax=11.230466&Ymin=59.146155&Ymax=59.960798",
+        this.exchange = restTemplate.exchange("https://www.barentswatch.no/bwapi/v2/geodata/ais/openpositions?Xmin=10.035968&Xmax=11.230466&Ymin=59.146155&Ymax=59.960798",
                 HttpMethod.GET,
                 httpEntity,
                 Track[].class);
+    }
 
-        List<Point> collect = Stream.of(exchange.getBody()).map(
+    public List<Point> getTracks() {
+
+        return Stream.of(Objects.requireNonNull(exchange.getBody())).map(
                 track -> new Point(
                         track.getGeometry().getCoordinates().get(0),
                         track.getGeometry().getCoordinates().get(1),
@@ -58,9 +57,6 @@ public class TrackService {
                         getDestination(track.getDestination(), track.getGeometry().getCoordinates()).getLatitude()
                 )
         ).collect(Collectors.toList());
-
-
-        return collect;
     }
 
     public Datum getDestination(String destinationName, List<Double> coordinates) {
@@ -76,43 +72,7 @@ public class TrackService {
         }
     }
 
-    public List<Vessel> getVessels() {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Authorization", tokenService.getAisToken());
-        HttpEntity httpEntity = new HttpEntity(httpHeaders);
-
-        // location: Oslo
-        ResponseEntity<Track[]> exchange = restTemplate.exchange("https://www.barentswatch.no/bwapi/v2/geodata/ais/openpositions?Xmin=10.035968&Xmax=11.230466&Ymin=59.146155&Ymax=59.960798",
-                HttpMethod.GET,
-                httpEntity,
-                Track[].class);
-
-        List<Vessel> vesselList = Stream.of(exchange.getBody()).map(
-                vessel -> new Vessel(
-                        vessel.getCallsign(),
-                        vessel.getName(),
-                        vessel.getCountry(),
-                        vessel.getShipType(),
-                        vessel.getDestination()
-                )
-        ).collect(Collectors.toList());
-
-
-
-        return vesselList;
-    }
-
-
     public List<VesselDto> getVesselsForDb() {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Authorization", tokenService.getAisToken());
-        HttpEntity httpEntity = new HttpEntity(httpHeaders);
-
-        // location: Oslo
-        ResponseEntity<Track[]> exchange = restTemplate.exchange("https://www.barentswatch.no/bwapi/v2/geodata/ais/openpositions?Xmin=10.035968&Xmax=11.230466&Ymin=59.146155&Ymax=59.960798",
-                HttpMethod.GET,
-                httpEntity,
-                Track[].class);
 
         return Stream.of(Objects.requireNonNull(exchange.getBody())).map(
                 vessel -> new VesselDto(
@@ -128,10 +88,7 @@ public class TrackService {
 
     @EventListener(ApplicationReadyEvent.class)
     public void initDb() {
-//        vesselRepository.saveAll(getVessels());
         vesselRepository.saveAll(getVesselsForDb());
-
-        System.out.print(vesselRepository.findAll());
     }
 
 

@@ -1,7 +1,5 @@
 package com.rafalstefanski.springvesselfinder.controller;
 
-import com.rafalstefanski.springvesselfinder.model.Token;
-import com.rafalstefanski.springvesselfinder.model.vessel.Vessel;
 import com.rafalstefanski.springvesselfinder.repository.VesselRepository;
 import com.rafalstefanski.springvesselfinder.service.TokenService;
 import com.rafalstefanski.springvesselfinder.service.TrackService;
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
 
 @Controller
 public class MapController {
@@ -42,7 +39,7 @@ public class MapController {
         return new ResponseEntity<>(tokenService, HttpStatus.OK);
     }
 
-    // Api view on Vessel list
+    // Api view with JSON with Track and Vessel list
     @GetMapping("/vessels")
     public ResponseEntity<TrackService> getVessels() {
         return new ResponseEntity<>(trackService, HttpStatus.OK);
