@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Vessel Finder</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
           integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
           crossorigin=""/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
             integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
@@ -17,13 +19,31 @@
 </head>
 <body>
 <h3 style="text-align: center">Vessel Finder</h3>
-<h5 style="text-align: center">Current location: Oslo, Norway</h5>
+<h5 style="text-align: center">Location: Oslo, Norway</h5>
 
 
 <div id="map"></div>
 
+<table class="table table-striped" style="margin-left:auto; margin-right: auto; width: 75%; text-align: left">
+    <thead>
+    <th>Call Sign</th>
+    <th>Name</th>
+    <th>Country</th>
+    <th>Ship Type</th>
+    <th>Destination</th>
+    </thead>
+    <tbody>
+    <tr th:each="vessels: ${vesselsList}">
+        <td th:text="${vessels.getCallSign()}"></td>
+        <td th:text="${vessels.getName()}"></td>
+        <td th:text="${vessels.getCountry()}"></td>
+        <td th:text="${vessels.getShipType()}"></td>
+        <td th:text="${vessels.getDestination()}"></td>
+    </tr>
+    </tbody>
+</table>
+
 <script th:inline="javascript">
-    // var map = L.map('map').setView([52.95, 19.23], 13);
     var map = L.map('map').setView([59.884480, 10.666322], 9);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

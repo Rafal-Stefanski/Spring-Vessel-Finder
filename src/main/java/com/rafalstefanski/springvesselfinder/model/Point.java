@@ -2,29 +2,18 @@ package com.rafalstefanski.springvesselfinder.model;
 
 public class Point {
 
-    private double x;
     private double y;
-    private String shipType;
+    private double x;
     private String name;
-    private String destination;
+    private double destinationY;
+    private double destinationX;
 
-    public Point() {
-    }
-
-    public Point(double x, double y, String shipType, String name, String destination) {
-        this.x = x;
+    public Point(double y, double x, String name, double destinationY, double destinationX) {
         this.y = y;
-        this.shipType = shipType;
-        this.name = name;
-        this.destination = destination;
-    }
-
-    public double getX() {
-        return x;
-    }
-
-    public void setX(double x) {
         this.x = x;
+        this.name = name;
+        this.destinationY = destinationY;
+        this.destinationX = destinationX;
     }
 
     public double getY() {
@@ -35,12 +24,12 @@ public class Point {
         this.y = y;
     }
 
-    public String getShipType() {
-        return shipType;
+    public double getX() {
+        return x;
     }
 
-    public void setShipType(String shipType) {
-        this.shipType = shipType;
+    public void setX(double x) {
+        this.x = x;
     }
 
     public String getName() {
@@ -51,11 +40,19 @@ public class Point {
         this.name = name;
     }
 
-    public String getDestination() {
-        return destination;
+    public double getDestinationY() {
+        return destinationY;
     }
 
-    public void setDestination(String destination) {
-        this.destination = destination;
+    public void setDestinationY(double destinationY) {
+        this.destinationY = destinationY;
+    }
+
+    public double getDestinationX() {
+        return destinationX;
+    }
+
+    public void setDestinationX(double destinationX) {
+        this.destinationX = destinationX;
     }
 }
