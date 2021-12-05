@@ -31,6 +31,6 @@
 
 ***
 ##### Screenshots
-![screen shot](https://github.com/Rafal-Stefanski/Spring-Vessel-Finder/blob/master/src/main/resources/static/screenshot_01.png)
 ![screen shot](https://github.com/Rafal-Stefanski/Spring-Vessel-Finder/blob/master/src/main/resources/static/screenshot_02.png)
 ![screen shot](https://github.com/Rafal-Stefanski/Spring-Vessel-Finder/blob/master/src/main/resources/static/screenshot_03.png)
+![screen shot](https://github.com/Rafal-Stefanski/Spring-Vessel-Finder/blob/master/src/main/resources/static/screenshot_01.png)
