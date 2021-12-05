@@ -16,13 +16,12 @@
 - endpoint: http://localhost:8080
 
 ##### Comment
-Wykorzystany kod źródłowy z livestream'a Przemka Bykowskiego. 
-    Dodane:
-    - automatyczne generowanie i pobieranie tokena do aplikacji, aby aplikacja otwierała się bez konieczności generowania tokena manualnie.
-    - Ustawienie lokalizacji na Oslo 
-    - Dodanie tabeli z listą zapisanych do bazy danych jednostek, widocznych na mapce.
+Wykorzystany kod źródłowy z livestream'a Przemka Bykowskiego. Dodane:
+- automatyczne generowanie i pobieranie tokena do aplikacji, aby aplikacja otwierała się bez konieczności generowania tokena manualnie.
+- Ustawienie lokalizacji na Oslo
+- Dodanie tabeli z listą zapisanych do bazy danych jednostek, widocznych na mapce.
     
-Tylko tyle :) z powodu ograniczenia czasowego na wykonanie zadania. Nie starczyło już czasu na Dockera. 
+Tylko tyle :) z powodu ograniczenia czasowego na wykonanie zadania. Nie starczyło już czasu na Dockera.
 
 Bedzie mi niezmiernie miło jeśli otrzymam nawet bardzo pobieżny feedback wykonanego zadania.
 
