@@ -27,7 +27,8 @@ public class TrackService {
         HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
 //        ResponseEntity<Track[]> exchange = restTemplate.exchange("https://www.barentswatch.no/bwapi/v2/geodata/ais/openpositions?Xmin=4.83&Xmax=31.04&Ymin=57.90&Ymax=68.31",
-        ResponseEntity<Track[]> exchange = restTemplate.exchange("https://www.barentswatch.no/bwapi/v2/geodata/ais/openpositions?Xmin=10.09094&Xmax=10.67047&Ymin=63.3989&Ymax=63.58645",
+//        ResponseEntity<Track[]> exchange = restTemplate.exchange("https://www.barentswatch.no/bwapi/v2/geodata/ais/openpositions?Xmin=10.09094&Xmax=10.67047&Ymin=63.3989&Ymax=63.58645",
+        ResponseEntity<Track[]> exchange = restTemplate.exchange("https://www.barentswatch.no/bwapi/v2/geodata/ais/openpositions?Xmin=10.035968&Xmax=11.230466&Ymin=59.146155&Ymax=59.960798",
                 HttpMethod.GET,
                 httpEntity,
                 Track[].class);
