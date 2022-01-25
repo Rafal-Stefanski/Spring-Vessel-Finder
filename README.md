@@ -17,12 +17,13 @@
 - endpoint: http://localhost:8080
 
 #### Task / Description
-Zadanie konkursowe CTM Gdynia. Wykorzystując dane pobierane z AIS utwórz aplikację, która będzie wyświetlała informacje na temat jednostek morskich na mapie.
+
+Application built as contest project. Using data received from external AIS API create an App showing location and information about ships in given area.
 
 #### In progress, so far added:
-- automatyczne generowanie i pobieranie tokena do aplikacji, aby aplikacja otwierała się bez konieczności generowania tokena manualnie.
-- Ustawienie lokalizacji na Oslo
-- Dodanie tabeli z listą zapisanych do bazy danych jednostek, widocznych na mapce.
+- Automaticly generated token to receive information from external API automaticly.
+- Added Oslo location.
+- Added table view of ships data saved to database, appearing on the map.
     
 ***
 #### Screenshots
